@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-container {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+.form-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h1>41-VoNhatTin-21138211</h1>
+		<h1>Cập nhật đơn hàng</h1>
+		<hr>
+		<div class="center">
+			<a th:href="@{/donhang}">Danh sách đơn hàng </a>
+			<h2>|</h2>
+			<a th:href="@{/donhang/donhangnew}"> Thêm mới đơn hàng</a>
+		</div>
+		<div class="form-container">
+			<form th:object="${donhang}"
+				th:action="@{/donhang/dhupdate/{id}(id=${donhang.id})}"
+				method="post">
+				<input type="hidden" th:field="*{maDonHang}">
+				<div class="form-group">
+					<label>Tên khách hàng</label><br> <input type="text"
+						placeholder="Nhập tên khách hàng" th:field="*{tenKH}" />
+				</div>
+				<div class="form-group">
+					<label>Email</label><br> <input type="text"
+						placeholder="Nhập email" th:field="*{email}" />
+				</div>
+				<div class="form-group">
+					<label>Ngày đặt hàng</label><br> <input name="ngayDatHang" type="date"
+						 th:value="*{ngayDatHang}" />
+				</div>
+				<div class="form-group">
+					<label>Trạng thái:</label> <label>Chấp nhận</label> <input
+						type="radio" value="true" name="trangThai" th:field="*{trangThai}" />
+					<label>Chưa chấp nhận</label> <input type="radio" value="false"
+						name="trangThai" th:field="*{trangThai}" />
+				</div>
+				<div class="form-group">
+					<label>Tên sản phẩm</label><br> <input type="text"
+						placeholder="Nhập tên sản phấm" th:field="*{tenSP}" />
+				</div>
+				<div class="form-group">
+					<label>Mã cửa hàng</label><br> <select
+						th:field="*{cuaHang.id}">
+						<option th:text="${item.ten}" th:value="${item.id}"
+							th:each="item:${cuahang}"></option>
+					</select>
+				</div>
+				<div class="form-group"></div>
+				<button>Submit</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

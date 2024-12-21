@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-container {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+.form-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+th, td {
+	padding: 8px;
+	text-align: left;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h1>41-VoNhatTin-21138211</h1>
+		<div class="form-container">
+			<form th:href="donhang" th:action="@{/donhang/search}" th:method="post">
+				<div class="form-group">
+					<label>Tìm kiếm theo mã đơn hàng</label> <br> <input name="maDH"
+						id="maDH" placeholder="Nhập mã đơn hàng..." /><br>
+				</div>
+				<div class="form-group">
+					<label>Tìm kiếm theo tên cửa hàng</label><br> <input
+						name="tenCH" id="tenCH" placeholder="Nhập tên cửa hàng..." /><br>
+				</div>
+				<div class="footer-body">
+					<button class="btn btn-danger">Tìm</button>
+				</div>
+			</form>
+		</div>
+		<div class="center">
+			<a th:href="@{/donhang}">Danh sách đơn hàng </a>
+			<h2>|</h2>
+			<a th:href="@{/donhang/donhangnew}"> Thêm mới đơn hàng</a>
+		</div>
+		<div>
+			<table border="1">
+				<tr>
+					<td>ID</td>
+					<td>Mã đơn hàng</td>
+					<td>Tên khách hàng</td>
+					<td>Email</td>
+					<td>Ngày đặt hàng</td>
+					<td>Tên sản phẩm</td>
+					<td>Trạng thái</td>
+					<td>Mã cửa hàng</td>
+					<td>Action</td>
+				</tr>
+				<tr th:each="item:${listDonHang}">
+					<td th:text="${item.id}"></td>
+					<td th:text="${item.maDonHang}"></td>
+					<td th:text="${item.tenKH}"></td>
+					<td th:text="${item.email}"></td>
+					<td th:text="${item.ngayDatHang}"></td>
+					<td th:text="${item.tenSP}"></td>
+					<td
+						th:text="${item.trangThai == true ? 'Chấp nhận':'Chưa chấp nhận'}"></td>
+					<td th:text="${item.cuaHang.ten}"></td>
+					<td><a th:href="@{/donhang/dhupdate/{id}(id=${item.id})}">Cập
+							nhật</a> <a th:href="@{/donhang/dhdelete/{id}(id=${item.id})}">Xóa</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
